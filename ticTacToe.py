@@ -225,6 +225,12 @@ class Game:
 
         return (minv, qx, qy)
 
+    
+    # Alpha : Best already explored option for player Max
+    # Beta : Best already explored option for player Min
+    # Initially, alpha is negative infinity and beta is positive infinity
+    # Video (fr) : https://www.youtube.com/watch?v=j4bFdwkAll0
+    # en : https://www.youtube.com/watch?v=l-hh51ncgDI
     def play(self):
         while True:
             self.draw_board()
@@ -268,7 +274,10 @@ class Game:
                         except:
                             print('Please enter a int in [0, 2]')
 
-                    (qx, qy) = (px, py)
+                    #(qx, qy) = (px, py)
+                    
+                    qx = px
+                    qy = py
 
                     if self.is_valid(px, py):
                         self.current_state[px][py] = 'X'
