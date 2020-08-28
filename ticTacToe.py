@@ -71,52 +71,6 @@ class Game:
         return '.'
 
     # # Player 'O' is max, in this case AI
-    # def max(self):
-
-    #     # Possible values for maxv are:
-    #     # -1 - loss
-    #     # 0  - a tie
-    #     # 1  - win
-
-    #     # We're initially setting it to -2 as worse than the worst case:
-    #     maxv = -2
-
-    #     px = None
-    #     py = None
-
-    #     result = self.is_end()
-
-    #     # If the game came to an end, the function needs to return
-    #     # the evaluation function of the end. That can be:
-    #     # -1 - loss
-    #     # 0  - a tie
-    #     # 1  - win
-    #     if result == 'X':
-    #         return (-1, 0, 0)
-    #     elif result == 'O':
-    #         return (1, 0, 0)
-    #     elif result == '.':
-    #         return (0, 0, 0)
-
-    #     for i in range(0, 3):
-    #         for j in range(0, 3):
-    #             if self.current_state[i][j] == '.':
-    #                 global counti
-    #                 counti += 1
-    #                 print("counti" , counti)
-    #                 # On the empty field player 'O' makes a move and calls Min
-    #                 # That's one branch of the game tree.
-    #                 self.current_state[i][j] = 'O'
-    #                 (m, min_i, min_j) = self.min()
-    #                 # Fixing the maxv value if needed
-    #                 if m > maxv:
-    #                     maxv = m
-    #                     px = i
-    #                     py = j
-    #                 # Setting back the field to empty
-    #                 self.current_state[i][j] = '.'
-    #     return (maxv, px, py)
-
     def max_alpha_beta(self, alpha, beta):
         maxv = -2
         px = None
@@ -142,7 +96,7 @@ class Game:
                         py = j
                     self.current_state[i][j] = '.'
 
-                    # Next two ifs in Max and Min are the only difference between regular algorithm and minimax
+                    # Stop exploration 
                     if maxv >= beta:
                         return (maxv, px, py)
 
@@ -152,44 +106,6 @@ class Game:
         return (maxv, px, py)
 
     # # Player 'X' is min, in this case human
-    # def min(self):
-
-    #     # Possible values for minv are:
-    #     # -1 - win
-    #     # 0  - a tie
-    #     # 1  - loss
-
-    #     # We're initially setting it to 2 as worse than the worst case:
-    #     minv = 2
-
-    #     qx = None
-    #     qy = None
-
-    #     result = self.is_end()
-
-    #     if result == 'X':
-    #         return (-1, 0, 0)
-    #     elif result == 'O':
-    #         return (1, 0, 0)
-    #     elif result == '.':
-    #         return (0, 0, 0)
-
-    #     for i in range(0, 3):
-    #         for j in range(0, 3):
-    #             if self.current_state[i][j] == '.':
-    #                 global counti
-    #                 counti += 1
-    #                 print("counti" , counti)
-    #                 self.current_state[i][j] = 'X'
-    #                 (m, max_i, max_j) = self.max()
-    #                 if m < minv:
-    #                     minv = m
-    #                     qx = i
-    #                     qy = j
-    #                 self.current_state[i][j] = '.'
-
-    #     return (minv, qx, qy)
-
     def min_alpha_beta(self, alpha, beta):
 
         minv = 2
@@ -217,6 +133,7 @@ class Game:
                         qy = j
                     self.current_state[i][j] = '.'
 
+                    # Stop exploration
                     if minv <= alpha:
                         return (minv, qx, qy)
 
